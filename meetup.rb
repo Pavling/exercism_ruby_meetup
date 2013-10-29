@@ -18,6 +18,10 @@ class Meetup
     case 
       when method_name.match(/^(mon|tues|wednes|thurs|fri|satur|sun)teenth$/)
         first_date_by_day_from_monthday(@year, @month, 13, which_day($1))
+
+      when method_name.match(/^(.*)_(mon|tues|wednes|thurs|fri|satur|sun)day$/)
+        first_date_by_day_from_monthday(@year, @month, which_date($1), which_day($2))
+        
     else
       super
     end
@@ -34,5 +38,15 @@ class Meetup
       fri: 5,
       satur: 6,
     }[day.intern]
+  end
+
+  private
+  def which_date(ordinal)
+    {
+      first: 1,
+      second: 8,
+      third: 15,
+      fourth: 22,
+    }[ordinal.intern]
   end
 end
