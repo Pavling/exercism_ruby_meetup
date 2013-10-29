@@ -5,7 +5,7 @@ class Meetup
   end
 
 
-  def first_date_by_day_after_monthday(year, month, monthday, weekday)
+  def first_date_by_day_from_monthday(year, month, monthday, weekday)
     date = Date.new(year, month, monthday)
     while date.wday != weekday
       date = date + 1
@@ -16,8 +16,8 @@ class Meetup
   private
   def method_missing(method_name, *args, &block)
     case 
-      when method_name.match(/^(mon|tues|wednes|thurs|fri|sat|sun)teenth$/)
-        first_date_by_day_after_monthday(@year, @month, 12, which_day($1))
+      when method_name.match(/^(mon|tues|wednes|thurs|fri|satur|sun)teenth$/)
+        first_date_by_day_from_monthday(@year, @month, 13, which_day($1))
     else
       super
     end
@@ -32,7 +32,7 @@ class Meetup
       wednes: 3,
       thurs: 4,
       fri: 5,
-      sat: 6,
+      satur: 6,
     }[day.intern]
   end
 end
